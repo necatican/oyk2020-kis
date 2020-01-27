@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class TodoItem extends Model
@@ -11,7 +12,7 @@ class TodoItem extends Model
         if ($this->completed_at) {
             $this->completed_at = null;
         } else {
-            $this->completed_at = Carbon\Carbon::now();
+            $this->completed_at = Carbon::now();
         }
     }
 }
