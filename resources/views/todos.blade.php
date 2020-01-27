@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
 
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
-            <ul>
+            <ul class="list-group">
                 @foreach ($todos as $todo)
-                <li>
+                <li class="list-group-item">
                     <a href="{{ route('todos.toggle', $todo->id) }}">
                         @if(!is_null($todo->completed_at)) ✔️ <del> @endif
                             {{ $todo->text }}

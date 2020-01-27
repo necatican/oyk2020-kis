@@ -19,11 +19,11 @@ Route::get('falan', function() {
     return App\TodoItem::all();
 });
 
-Route::get('todos', 'TodoItemController@index')->name('todos.all');
+Route::get('todos', 'TodoItemController@index')->name('todos.all')->middleware(['auth']);
 
 Route::get('todos/{todo}/togglecomplete', 'TodoItemController@toggle')->name('todos.toggle');
 
-Route::post('todos','TodoItemController@store')->name('todos.store');
+Route::post('todos','TodoItemController@store')->name('todos.store')->middleware(['auth']);
 
 Auth::routes();
 

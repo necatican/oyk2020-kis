@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\TodoItem;
 
-class TodoItemController extends Controller
+class TodoController extends Controller
 {
+
     public function index(Request $request)
     {
-        $todos = $request->user()->todos;
-
-        return view('todos', ['todos' => $todos]);
+        return $request->user()->todos;
     }
 
     public function toggle(TodoItem $todo, Request $request)
     {
-        if ($request->user->id !== $todo->user_id) return abort(403);
+        if ($request->user()->id != $todo->user_id) return abort(403);
         $todo->toggle();
         $todo->save();
 
-        return redirect()->route('todos.all');
+        return $todo;
     }
 
     public function store(Request $request)
@@ -29,11 +29,12 @@ class TodoItemController extends Controller
             'todo' => 'required|string|min:3'
         ]);
 
+
         $todo = new TodoItem;
         $todo->user_id = $request->user()->id;
         $todo->text = $request->todo;
         $todo->save();
 
-        return redirect()->route('todos.all');
+        return $todo;
     }
 }
